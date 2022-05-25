@@ -1,29 +1,35 @@
 <!DOCTYPE html>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "loginn.css" ?>">
+    <meta charset="UTF-8" />
+    <title>Login form</title>
+</head>
 
-<script src="login.js"></script>
+<body>
+    <h1>Please log in</h1>
 
-<meta charset="UTF-8" />
-<title>Login form</title>
+    <div id="login-form">
+        <form action="<?= BASE_URL . "user/login" ?>" method="post">
+            <p>
+                <label>Username: <input type="text" id="username" name="username" autocomplete="off" 
+                    required autofocus /></label><br/>
+                <label>Password: <input type="password" id="passwords" name="password" required /></label>
+            </p>
+            <p><button id="submit">Log-in</button></p>
+        </form>
+        <div id="create-account-wrap">
+            <p><button id= "reg">Register</button></p>
+        </div>
+        <div id="group checl">
+        <input type="number" id="phone" name="phone" placeholder="Group ID">
+        </div>
+    </div>
+</body>
 
-<h1>Please log in</h1>
-
-<div id="Login"></div>
-
-
-<form action="<?= BASE_URL . "user/login" ?>" method="post">
-    <p>
-        <label>Username: <input type="text" name="username" autocomplete="off" 
-            required autofocus /></label><br/>
-        <label>Password: <input type="password" name="password" required /></label>
-    </p>
-    <p><button>Log-in</button></p>
-</form>
-<p><button id= "reg">Register</button></p>
 <script>
     $("#reg").click(function() {
         document.location.href = "<?= BASE_URL . "user/register" ?>"
     });
     </script>
+</body>

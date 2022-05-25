@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . " calendar.css" ?>">
+<link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "calendar.css" ?>">
 <meta charset="UTF-8" />
 <title>Edit entry</title>
 

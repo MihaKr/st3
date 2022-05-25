@@ -76,10 +76,8 @@ class AlertDB {
     public static function accept($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("UPDATE alerts SET acc = :acc WHERE alertId = :alertId");
-        $statement->bindParam(":acc", 2);
+        $statement = $db->prepare("UPDATE alerts SET acc = 2 WHERE alertId = :alertId");
         $statement->bindParam(":alertId", $id);
-
 
         $statement->execute();
     }
@@ -87,11 +85,21 @@ class AlertDB {
     public static function decline($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("UPDATE alerts SET acc = :acc WHERE alertId = :alertId");
-        $statement->bindParam(":acc", 0);
+        $statement = $db->prepare("UPDATE alerts SET acc = 0 WHERE alertId = :alertId");
         $statement->bindParam(":alertId", $id);
 
         $statement->execute();
+    }
+
+    public static function getCreatorId($id) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT alertId FROM alerts WHERE userId= :id ORDER BY alertId DESC LIMIT 1");
+        $statement->bindParam(":id", $id);
+
+        $statement->execute();
+
+        return $statement->fetch(0);  
     }
 
 }

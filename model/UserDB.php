@@ -67,17 +67,23 @@ class UserDB {
         return $statement->fetch(0);  
     }
 
-    public static function update($userId, $name, $group1, $group2, $group3, $password) {
+    public static function update($userId, $name, $group1, $group2, $group3) {
         $db = DBInit::getInstance();
 
+
         $statement = $db->prepare("UPDATE user SET name = :name,
-            group1 = :group1, group2 = :group2, group3 = :group3, password = :password WHERE userId = :userId");
+        group1 = :group1, group2 = :group2, group3 = :group3 WHERE userId = :userId");
+        
+        $statement->bindParam(":userId", $userId);
+
         $statement->bindParam(":name", $name);
+
         $statement->bindParam(":group1", $group1);
+
         $statement->bindParam(":group1", $group2);
+
         $statement->bindParam(":group1", $group3);
-        $statement->bindParam(":userId", $userId, PDO::PARAM_INT);
-        $statement->bindParam(":password", $password);
+
 
         $statement->execute();
     }

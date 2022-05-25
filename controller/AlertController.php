@@ -19,6 +19,10 @@ class AlertController {
     }
 
     public static function send_alerts($group, $eventId) {
+        session_start();
+
+        $ur = $_SESSION['userId'];
+
         $sendTo = AlertDB::getUserId($group);
 
         $length = count($sendTo);
@@ -27,14 +31,35 @@ class AlertController {
             $uId = $sendTo[$i]["userId"];
             AlertDB::send($uId, $eventId["eventId"]);
         }
+
+        $Aid = AlertDB::getCreatorId($ur);
+
+        self::accept($Aid);
     }
+
+    public static function autoAccept() {
+        session_start();
+
+        $ur = $_SESSION['userId'];
+        $Aid = AlertDB::getCreatorId($ur);
+
+        AlertController::accept($Aid['alertId']);
+    }
+
 
     public static function accept($alertId) {
         AlertDB::accept($alertId);
+        session_start();
+        $uId = $_SESSION['userId'];
+        ViewHelper::render("view/alert-list.php", ["event" => AlertDB::getAlerts($uId), "alertId" => AlertDB::getAId($uId)]);
+
     }
 
     public static function decline($alertId) {
         AlertDB::decline($alertId);
+        session_start();
+        $uId = $_SESSION['userId'];
+        ViewHelper::render("view/alert-list.php", ["event" => AlertDB::getAlerts($uId), "alertId" => AlertDB::getAId($uId)]);
     }
 }
 

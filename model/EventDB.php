@@ -58,6 +58,19 @@ class EventDB {
         return $statement->fetchall();  
     }
 
+    public static function getAcceptedEvents($id) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT name, eventId, userId, groupId, location, date, about FROM event WHERE eventId = ANY ( 
+            SELECT eventId FROM alerts WHERE acc = 2 AND userId = :id)");
+
+        $statement->bindParam(":id", $id);
+
+        $statement->execute();
+
+        return $statement->fetchall();  
+    }
+
 
     public static function getId() {
         $db = DBInit::getInstance();

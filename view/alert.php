@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <meta charset="UTF-8" />
-<link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . " calendar.css" ?>">
+<link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "calendar.css" ?>">
 
 <?php include("view/menu.php"); ?>
 <title>User Profile</title>
@@ -19,7 +19,7 @@
 <?php 
 $url = "$_SERVER[REQUEST_URI]";
 
-$id = explode("=", $url);
+$id = explode("=", $url)[1];
 
 ?>
 <button type="button" id="yes">Accept</button>
@@ -27,6 +27,8 @@ $id = explode("=", $url);
 
 <script>
 $(document).ready(() => {
+    let id =  "<?php echo $id; ?>";
+
     $("#cal").click(function() {
         document.location.href = "<?= BASE_URL . "user/calendar" ?>"
     });
@@ -43,27 +45,27 @@ $(document).ready(() => {
         document.location.href = "<?= BASE_URL . "event" ?>"
     });   
 
-    $.ajax({ url: '/my/site',
-         data: {action: 'test'},
-         type: 'post',
-         success: function(output) {
-            alert(output);
+    $("#yes").click(function() {
+        $.ajax({
+        type: "POST",
+        url: "<?php echo BASE_URL . 'Alert/accept' ?>",
+        data : { "id" : id },
+        success: function() {
+            console.log("test");
         }
     });
+    });  
 
-
-    $("#yes").click(function(){
-        $.post("<?= BASE_URL . "event" ?>", 
-            { id: $(this).data("id") },
-                AlertController::accept($id);
-        );
+    $("#no").click(function() {
+        $.ajax({
+        type: "POST",
+        url: "<?php echo BASE_URL . 'Alert/decline' ?>",
+        data : { "id" : id },
+        success: function() {
+            console.log("test");
+        }
     });
+    }); 
 
-    $("#no").click(function(){
-        $.post("<?= BASE_URL . "event" ?>", 
-            { id: $(this).data("id") },
-                AlertController::decline($id);
-        );
-    });
 });
 </script>

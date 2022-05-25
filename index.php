@@ -69,6 +69,15 @@ $urls = [
     "alert" => function () {
         AlertController::alert_details();
     },
+    "Alert/accept" => function () {
+        $data = $_POST['id'];
+        AlertController::accept($data);
+    },
+    "Alert/decline" => function () {
+        $data = $_POST['id'];
+        AlertController::decline($data);
+    },
+    
 ];
 
 try {

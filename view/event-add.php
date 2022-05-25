@@ -2,7 +2,7 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <meta charset="UTF-8" />
-<link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . " calendar.css" ?>">
+<link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "calendar.css" ?>">
 
 <?php include("view/menu.php"); ?>
 <h1>Add new Event</h1>

@@ -78,12 +78,11 @@ class UserController {
             isset($_POST["group1"]) && !empty($_POST["group1"]) &&
             isset($_POST["group2"]) && !empty($_POST["group2"]) &&
             isset($_POST["group3"]) && !empty($_POST["group3"]) &&
-            isset($_POST["password"]) && !empty($_POST["password"]) &&
             isset($_POST["userId"]) && !empty($_POST["userId"]);
 
         if ($validData) {
-            UserDB::update($_POST["userId"], $_POST["name"], $_POST["group1"], $_POST["group2"], $_POST["group3"], $_POST["password"]);
-            ViewHelper::redirect(BASE_URL . "User?id=" . $_POST["userId"]);
+            UserDB::update($_POST["userId"], $_POST["name"], $_POST["group1"], $_POST["group2"], $_POST["group3"]);
+            ViewHelper::redirect(BASE_URL . "user/profile");
         } else {
             self::showEditForm($_POST);
         }

@@ -28,20 +28,21 @@ class EventController {
             $eventId = EventDB::getId();
 
             AlertController::send_alerts($gr, $eventId);
+            AlertController::autoAccept();
+
             ViewHelper::redirect(BASE_URL . "event");
         } else {
             self::showAddForm($_POST);
         }
     }
 
-
     public static function event_details() {
         if (isset($_GET["id"])) {
             ViewHelper::render("view/event.php", ["event" => EventDB::getEventDATA($_GET["id"])]);
         } else {
             session_start();
-            $gr = UserDB::getGroups($_SESSION['userId']);
-            ViewHelper::render("view/event-all.php", ["event" => EventDB::getGroupEvents($gr)]);
+            $ur = $_SESSION['userId'];
+            ViewHelper::render("view/event-all.php", ["event" => EventDB::getAcceptedEvents($ur)]);
         }
     }
 }
