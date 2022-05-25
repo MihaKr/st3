@@ -5,7 +5,7 @@ class DBInit {
     private static $host = "localhost";
     private static $user = "root";
     private static $password = "";
-    private static $schema = "calendar";
+    private static $schema = "calendar1";
     private static $instance = null;
 
     private function __construct() {
