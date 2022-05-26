@@ -12,8 +12,6 @@ class EventController {
     }
 
     public static function add() {
-        session_start();
-
         $gr = GroupDB::getID($_POST["groupId"]);
         $ur = $_SESSION['userId'];
 
@@ -40,7 +38,6 @@ class EventController {
         if (isset($_GET["id"])) {
             ViewHelper::render("view/event.php", ["event" => EventDB::getEventDATA($_GET["id"])]);
         } else {
-            session_start();
             $ur = $_SESSION['userId'];
             ViewHelper::render("view/event-all.php", ["event" => EventDB::getAcceptedEvents($ur)]);
         }

@@ -1,12 +1,14 @@
+<link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "menu.css" ?>">
+
 <nav class="navtop">
 	<div>
-	    <h1>Event Calendar</h1>
-        <button type="button" id="cal">Calendar</button>
-        <button type="button" id="alert">Alerts</button>
-        <button type="button" id="prof">Profile</button>
-        <button type="button" id="newEvent">New event</button>
-        <button type="button" id="logOut">Log out</button>
-        <button type="button" id="evList">EventList</button>
+	    <h1>MeetUp</h1>
+        <button class="button" id="cal">Calendar</button>
+        <button class="button" id="alert">Alerts</button>
+        <button class="button" id="prof">Profile</button>
+        <button class="button" id="newEvent">New event</button>
+        <button class="button" id="logOut">Log out</button>
+        <button class="button" id="evList">EventList</button>
 	 </div>
 </nav>
 

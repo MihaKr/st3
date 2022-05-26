@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 26, 2022 at 12:46 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.29
+-- Host: 127.0.0.1
+-- Generation Time: May 26, 2022 at 02:21 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,10 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alerts` (
   `alertId` int(11) NOT NULL,
-  `acc` int(11) NOT NULL DEFAULT 0,
+  `acc` int(11) NOT NULL DEFAULT 1,
   `eventId` int(11) NOT NULL,
   `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `alerts`
+--
+
+INSERT INTO `alerts` (`alertId`, `acc`, `eventId`, `userId`) VALUES
+(1, 2, 2, 1),
+(2, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -42,13 +50,21 @@ CREATE TABLE `alerts` (
 
 CREATE TABLE `event` (
   `eventId` int(11) NOT NULL,
-  `eventName` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `userId` int(11) NOT NULL,
   `groupId` int(11) NOT NULL,
   `date` date NOT NULL,
   `location` varchar(255) NOT NULL,
   `about` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `event`
+--
+
+INSERT INTO `event` (`eventId`, `name`, `userId`, `groupId`, `date`, `location`, `about`) VALUES
+(1, 'test nov', 2, 1, '2022-05-27', 'lhj', 'druzenje'),
+(2, 'test2', 2, 1, '2022-05-24', '312312', 'kr tk');
 
 -- --------------------------------------------------------
 
@@ -60,6 +76,13 @@ CREATE TABLE `groups` (
   `groupId` int(11) NOT NULL,
   `groupName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`groupId`, `groupName`) VALUES
+(1, 'faks');
 
 -- --------------------------------------------------------
 
@@ -77,6 +100,14 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`userId`, `name`, `group1`, `group2`, `group3`, `password`) VALUES
+(1, 'prvi', 1, 0, 0, 'test'),
+(2, 'test Vpis', 1, 0, 0, 'vpis');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -84,13 +115,17 @@ CREATE TABLE `user` (
 -- Indexes for table `alerts`
 --
 ALTER TABLE `alerts`
-  ADD PRIMARY KEY (`alertId`);
+  ADD PRIMARY KEY (`alertId`),
+  ADD KEY `eventId` (`eventId`),
+  ADD KEY `userId` (`userId`);
 
 --
 -- Indexes for table `event`
 --
 ALTER TABLE `event`
-  ADD PRIMARY KEY (`eventId`);
+  ADD PRIMARY KEY (`eventId`),
+  ADD KEY `userId` (`userId`),
+  ADD KEY `groupId` (`groupId`);
 
 --
 -- Indexes for table `groups`
@@ -102,7 +137,10 @@ ALTER TABLE `groups`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`userId`);
+  ADD PRIMARY KEY (`userId`),
+  ADD KEY `group1` (`group1`),
+  ADD KEY `group2` (`group2`),
+  ADD KEY `group3` (`group3`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -112,25 +150,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `alerts`
 --
 ALTER TABLE `alerts`
-  MODIFY `alertId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `alertId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `eventId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `eventId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `groupId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `groupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

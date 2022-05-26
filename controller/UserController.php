@@ -11,12 +11,16 @@ class UserController {
     }
 
     public static function loggedIn() {
-        session_start();
+        if(!isset($_SESSION)) { 
+            session_start(); 
+        } 
         return((isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true));
     }
 
     public static function login() {
-        session_start(); 
+        if(!isset($_SESSION)) { 
+            session_start(); 
+        } 
             if (UserDB::validLoginAttempt($_POST["username"], $_POST["password"])) {
 
                 $_SESSION['user'] = $_POST["username"];
@@ -40,10 +44,11 @@ class UserController {
     }
 
     public static function register() {
-        session_start(); 
+        if(!isset($_SESSION)) { 
+            session_start(); 
+        }  
         $validData = isset($_POST["name"]) && !empty($_POST["name"]) && 
                 isset($_POST["password"]) && !empty($_POST["password"]);
-        echo($validData);        
         if ($validData) {
             UserDB::addUser($_POST["name"], $_POST["password"]);
             $_SESSION['user'] = $_POST["name"];
@@ -56,8 +61,6 @@ class UserController {
     }   
     
     public static function showEditForm($data = [], $errors = []) {
-        session_start(); 
-
         if (empty($data)) {
             $data = UserDB::getUserDATAAll($_SESSION['userId']);
         }
@@ -89,13 +92,11 @@ class UserController {
     }
 
     public static function logout() { 
-        session_start();
         session_destroy();  
         ViewHelper::redirect(BASE_URL . "user/login");
     }
 
-    public static function profile() { 
-        session_start();
+    public static function profile() {  
         ViewHelper::render("view/profile.php", ["user" => UserDB::getUserDATA($_SESSION['userId'])]);
     }
 }

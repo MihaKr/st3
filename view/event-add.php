@@ -9,7 +9,7 @@
 
 <form action="<?= BASE_URL . "event/add" ?>" method="post">
     <p><label>Event Name: <input type="text" name="name" value="<?= $name ?>" autofocus /></label></p>
-    <p><label>Group: <input type="text" name="groupId" value="<?= $group ?>" /></label></p>
+    <p><label>Group: <input type="text" name="groupId" value="<?= $groupId ?>" /></label></p>
     <p><label>Location: <input type="text" name="location" value="<?= $location ?>" /></label></p>
     <p><label>Date: <input type="date" name="date" value="<?= $date ?>" /></label></p>
     <p><label>About: <input type="textarea" name="about" value="<?= $about ?>" /></label></p>

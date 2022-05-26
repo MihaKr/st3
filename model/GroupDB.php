@@ -23,4 +23,22 @@ class GroupDB {
         return $statement->fetch(0);  
     }
 
+    public static function insert($name) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("INSERT INTO groups (name) VALUES (:name");
+        $statement->bindParam(":name", $name);
+        $statement->execute();
+    }
+
+    
+    public static function getLastId() {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT groupId FROM groups ORDER BY groupId DESC LIMIT 1");
+
+        $statement->execute();
+
+        return $statement->fetch(0);  
+    }
 }

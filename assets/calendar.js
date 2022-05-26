@@ -7,11 +7,8 @@ let cal = {
   sDay : 0, sMth : 0, sYear : 0,
 
   hMth : null, hYear : null, 
-  hForm : null, hfHead : null, hfDate : null, hfTxt : null, hfDel : null, // event form
-
-  // (B) INIT CALENDAR
+  hForm : null, hfHead : null, hfDate : null, hfTxt : null, hfDel : null,
   init : () => {
-    // (B1) GET + SET COMMON HTML ELEMENTS
     cal.hMth = document.getElementById("cal-mth");
     cal.hYear = document.getElementById("cal-yr");
     cal.hForm = document.getElementById("cal-event");
