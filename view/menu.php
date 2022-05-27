@@ -1,4 +1,6 @@
 <link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "menu.css" ?>">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 
 <nav class="navtop">
 	<div>

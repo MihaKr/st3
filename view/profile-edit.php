@@ -6,7 +6,7 @@
 
 <h1>Edit Profile</h1>
 
-<?php include("view/menu-links.php"); ?>
+<?php include("view/menu.php"); ?>
 
 <form action="<?= BASE_URL . "user/edit" ?>" method="post">
     <input type="hidden" name="userId" value="<?= $user["userId"] ?>"  />

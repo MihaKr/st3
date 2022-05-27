@@ -21,7 +21,11 @@ class UserController {
         if(!isset($_SESSION)) { 
             session_start(); 
         } 
-            if (UserDB::validLoginAttempt($_POST["username"], $_POST["password"])) {
+
+        $salt = 'RHNgGIz5SoQLKhT5CaKh!2';
+        $pass = password_hash($_POST["password"], PASSWORD_BCRYPT, array("salt" => $salt));
+
+            if (UserDB::validLoginAttempt($_POST["username"], $pass)) {
 
                 $_SESSION['user'] = $_POST["username"];
                 $_SESSION['userId'] = UserDB::getId($_POST["username"]);
@@ -49,14 +53,21 @@ class UserController {
         }  
         $validData = isset($_POST["name"]) && !empty($_POST["name"]) && 
                 isset($_POST["password"]) && !empty($_POST["password"]);
-        if ($validData) {
-            UserDB::addUser($_POST["name"], $_POST["password"]);
-            $_SESSION['user'] = $_POST["name"];
-            $_SESSION['userId'] = UserDB::getId($_POST["name"]);
-            $_SESSION["loggedin"] = true;
-            ViewHelper::redirect(BASE_URL . "user/calendar");
-        } else {
-            self::registerForm($_POST);
+        if(UserDB::exists($_POST["name"]) == null) {
+            if ($validData) {
+                $salt = 'RHNgGIz5SoQLKhT5CaKh!2';
+                $pass = password_hash($_POST["password"], PASSWORD_BCRYPT, array("salt" => $salt));
+                UserDB::addUser($_POST["name"], $pass);
+                $_SESSION['user'] = $_POST["name"];
+                $_SESSION['userId'] = UserDB::getId($_POST["name"]);
+                $_SESSION["loggedin"] = true;
+                ViewHelper::redirect(BASE_URL . "user/calendar");
+            } else {
+                self::registerForm($_POST);
+            }
+        }
+        else {
+            echo "<script type='text/javascript'>alert('Uporabnik s tem imenom že obstaja');</script>";
         }
     }   
     

@@ -18,30 +18,17 @@
 
 <button type="button" id="edit">EDIT</button><br>
 
-<p><label>Group Name: <input type="text" id = "groupName" autofocus /></label></p>
-<p><button id="create">CREATE GROUP</button></p>
-
-<p id="p"> </p>
+<form action="<?= BASE_URL . "group/add" ?>" method="post">
+    <p><label>Group Name: <input type="text" name="GRname" value="<?= $GRname ?>" autofocus /></label></p>
+    <p><button id="create">CREATE GROUP</button></p>
+</form>
 
 
 <script>
-    $(document).ready(() => {
-        $("#edit").click(function() {
-            document.location.href = "<?= BASE_URL . "user/edit" ?>"
-        });
-
-        $("#create").click(function() {
-            let name = document.getElementById('groupName').value;
-            $.ajax({
-            type: "POST",
-            url: "<?php echo BASE_URL . "group/add" ?>",
-            data : { "name" : name },
-            success: function() {
-                let par = document.getElementById("p");
-                par.textContent = "Skupina uspešno dodana";
-            }
-        });
-        });  
+$(document).ready(() => {
+    $("#edit").click(function() {
+        document.location.href = "<?= BASE_URL . "user/edit" ?>"
     });
+});
 </script>
 

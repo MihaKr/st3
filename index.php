@@ -77,8 +77,10 @@ $urls = [
         $data = $_POST['id'];
         AlertController::decline($data);
     },
-    "group/create" => function () {
-        GroupController::create();
+    "group/add" => function () {
+        $data = $_POST['name'];
+        echo($data);
+        GroupController::groupAdd($data);
     },
     
 ];

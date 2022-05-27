@@ -25,25 +25,11 @@ $id = explode("=", $url)[1];
 <button type="button" id="yes">Accept</button>
 <button type="button" id="no">Decline</button>
 
+<p id="p"> </p>
+
 <script>
 $(document).ready(() => {
-    let id =  "<?php echo $id; ?>";
-
-    $("#cal").click(function() {
-        document.location.href = "<?= BASE_URL . "user/calendar" ?>"
-    });
-    $("#prof").click(function() {
-        document.location.href = "<?= BASE_URL . "user/profile" ?>"
-    });
-    $("#newEvent").click(function() {
-        document.location.href = "<?= BASE_URL . "event/add" ?>"
-    });
-    $("#logOut").click(function() {
-        document.location.href = "<?= BASE_URL . "user/logout" ?>"
-    });
-    $("#evList").click(function() {
-        document.location.href = "<?= BASE_URL . "event" ?>"
-    });   
+    let id =  "<?php echo $id; ?>";  
 
     $("#yes").click(function() {
         $.ajax({
@@ -51,9 +37,11 @@ $(document).ready(() => {
         url: "<?php echo BASE_URL . 'Alert/accept' ?>",
         data : { "id" : id },
         success: function() {
-            console.log("test");
+            console.log("uspeh");
         }
     });
+        let par = document.getElementById("p");
+        par.textContent = "Vabilo na dogodek sprejeto";
     });  
 
     $("#no").click(function() {
@@ -62,9 +50,11 @@ $(document).ready(() => {
         url: "<?php echo BASE_URL . 'Alert/decline' ?>",
         data : { "id" : id },
         success: function() {
-            console.log("test");
+            console.log("failure");
         }
     });
+        let par = document.getElementById("p");
+        par.textContent = "Vabilo na dogodek zavrnjeno";
     }); 
 
 });

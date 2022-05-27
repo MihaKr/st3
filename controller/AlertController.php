@@ -39,20 +39,18 @@ class AlertController {
         $Aid = AlertDB::getCreatorId($ur);
 
         AlertController::accept($Aid['alertId']);
+        echo("test");
     }
 
 
     public static function accept($alertId) {
         AlertDB::accept($alertId);
         $uId = $_SESSION['userId'];
-        ViewHelper::render("view/alert-list.php", ["event" => AlertDB::getAlerts($uId), "alertId" => AlertDB::getAId($uId)]);
-
     }
 
     public static function decline($alertId) {
         AlertDB::decline($alertId);
         $uId = $_SESSION['userId'];
-        ViewHelper::render("view/alert-list.php", ["event" => AlertDB::getAlerts($uId), "alertId" => AlertDB::getAId($uId)]);
     }
 }
 

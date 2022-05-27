@@ -80,9 +80,9 @@ class UserDB {
 
         $statement->bindParam(":group1", $group1);
 
-        $statement->bindParam(":group1", $group2);
+        $statement->bindParam(":group2", $group2);
 
-        $statement->bindParam(":group1", $group3);
+        $statement->bindParam(":group3", $group3);
 
 
         $statement->execute();
@@ -93,6 +93,17 @@ class UserDB {
 
         $statement = $db->prepare("SELECT userId, name, group1, group2, group3, password FROM user WHERE userId = :id");
         $statement->bindParam(":id", $id);
+
+        $statement->execute();
+
+        return $statement->fetch(0);  
+    }
+
+    public static function exists($id) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT name FROM user WHERE name = :name");
+        $statement->bindParam(":name", $id);
 
         $statement->execute();
 

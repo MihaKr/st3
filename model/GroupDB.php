@@ -26,7 +26,7 @@ class GroupDB {
     public static function insert($name) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("INSERT INTO groups (name) VALUES (:name");
+        $statement = $db->prepare("INSERT INTO groups (groupName) VALUES (:name)");
         $statement->bindParam(":name", $name);
         $statement->execute();
     }
@@ -36,6 +36,17 @@ class GroupDB {
         $db = DBInit::getInstance();
 
         $statement = $db->prepare("SELECT groupId FROM groups ORDER BY groupId DESC LIMIT 1");
+
+        $statement->execute();
+
+        return $statement->fetch(0);  
+    }
+
+    public static function exists($id) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT groupName FROM groups WHERE groupName = :name");
+        $statement->bindParam(":name", $id);
 
         $statement->execute();
 

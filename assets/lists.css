@@ -2,3 +2,8 @@
     background-color: #ffdddd;
     border-left: 6px solid #f44336;
   }
+
+.container {
+    display: inline-block;
+    border: 20px solid #000;
+}
