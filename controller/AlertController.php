@@ -10,7 +10,11 @@ require_once("ViewHelper.php");
 class AlertController {
     public static function alert_details() {
         if (isset($_GET["id"])) {
-            ViewHelper::render("view/alert.php", ["event" => AlertDB::getAlertDATA($_GET["id"])]);
+            $event = AlertDB::getAlertDATA($_GET["id"]);
+            $event["userId"] = UserDB::getName($event["userId"])["name"];
+            $event["groupId"] = GroupDB::getGroupName($event["groupId"])["groupName"];
+
+            ViewHelper::render("view/alert.php", ["event" => $event]);
         } else {
             $uId = $_SESSION['userId'];
             ViewHelper::render("view/alert-list.php", ["event" => AlertDB::getAlerts($uId), "alertId" => AlertDB::getAId($uId)]);

@@ -6,7 +6,7 @@ class UserDB {
     public static function getAll() {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT userId, name, groupId FROM user");
+        $statement = $db->prepare("SELECT userId, name, groupId FROM `user`");
         $statement->execute();
 
         return $statement->fetchAll();
@@ -15,9 +15,7 @@ class UserDB {
     public static function validLoginAttempt($username, $password) {
         $dbh = DBInit::getInstance();
 
-        // !!! NEVER CONSTRUCT SQL QUERIES THIS WAY !!!
-        // INSTEAD, ALWAYS USE PREPARED STATEMENTS AND BIND PARAMETERS!
-                $stmt = $dbh->prepare("SELECT COUNT(userId) FROM user WHERE name = ? AND password = ?");
+                $stmt = $dbh->prepare("SELECT COUNT(userId) FROM `user` WHERE name = ? AND password = ?");
 
                 $stmt->execute(array($username, $password));
 
@@ -27,7 +25,7 @@ class UserDB {
     public static function addUser($name, $password) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("INSERT INTO user (name, password) VALUES (:name, :password)");
+        $statement = $db->prepare("INSERT INTO `user` (name, password) VALUES (:name, :password)");
         $statement->bindParam(":name", $name);
         $statement->bindParam(":password", $password);
 
@@ -37,7 +35,7 @@ class UserDB {
     public static function getId($name) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT userId FROM user WHERE name = :name");
+        $statement = $db->prepare("SELECT userId FROM `user` WHERE name = :name");
         $statement->bindParam(":name", $name);
 
         $statement->execute();
@@ -48,7 +46,7 @@ class UserDB {
     public static function getUserDATA($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT userId, name, group1, group2, group3 FROM user WHERE userId = :id");
+        $statement = $db->prepare("SELECT userId, name, group1, group2, group3 FROM `user` WHERE userId = :id");
         $statement->bindParam(":id", $id);
 
         $statement->execute();
@@ -59,7 +57,7 @@ class UserDB {
     public static function getGroups($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT group1, group2, group3 FROM user WHERE userId = :id");
+        $statement = $db->prepare("SELECT group1, group2, group3 FROM `user` WHERE userId = :id");
         $statement->bindParam(":id", $id);
 
         $statement->execute();
@@ -71,7 +69,7 @@ class UserDB {
         $db = DBInit::getInstance();
 
 
-        $statement = $db->prepare("UPDATE user SET name = :name,
+        $statement = $db->prepare("UPDATE `user` SET name = :name,
         group1 = :group1, group2 = :group2, group3 = :group3 WHERE userId = :userId");
         
         $statement->bindParam(":userId", $userId);
@@ -91,7 +89,7 @@ class UserDB {
     public static function getUserDATAAll($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT userId, name, group1, group2, group3, password FROM user WHERE userId = :id");
+        $statement = $db->prepare("SELECT userId, name, group1, group2, group3, password FROM `user` WHERE userId = :id");
         $statement->bindParam(":id", $id);
 
         $statement->execute();
@@ -102,8 +100,19 @@ class UserDB {
     public static function exists($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT name FROM user WHERE name = :name");
+        $statement = $db->prepare("SELECT name FROM `user` WHERE name = :name");
         $statement->bindParam(":name", $id);
+
+        $statement->execute();
+
+        return $statement->fetch(0);  
+    }
+
+    public static function getName($id) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT name FROM `user` WHERE userId = :id");
+        $statement->bindParam(":id", $id);
 
         $statement->execute();
 

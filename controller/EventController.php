@@ -36,7 +36,11 @@ class EventController {
 
     public static function event_details() {
         if (isset($_GET["id"])) {
-            ViewHelper::render("view/event.php", ["event" => EventDB::getEventDATA($_GET["id"])]);
+            $event = EventDB::getEventDATA($_GET["id"]);
+            $event["userId"] = UserDB::getName($event["userId"])["name"];
+            $event["groupId"] = GroupDB::getGroupName($event["groupId"])["groupName"];
+
+            ViewHelper::render("view/event.php", ["event" => $event]);
         } else {
             $ur = $_SESSION['userId'];
             ViewHelper::render("view/event-all.php", ["event" => EventDB::getAcceptedEvents($ur)]);

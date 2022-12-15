@@ -5,11 +5,6 @@ require_once("ViewHelper.php");
 
 class UserController {
 
-    public static function showC() {
-        $vars = [];
-        ViewHelper::render("view/calendar.php", $vars);
-    }
-
     public static function loggedIn() {
         if(!isset($_SESSION)) { 
             session_start(); 
@@ -31,7 +26,7 @@ class UserController {
                 $_SESSION['userId'] = UserDB::getId($_POST["username"]);
                 $_SESSION["loggedin"] = true;
 
-                ViewHelper::render("view/calendar.php");
+                ViewHelper::redirect(BASE_URL . "alert");
             } else {
                 ViewHelper::render("view/login.php", [
                     "errorMessage" => "Invalid username or password."
@@ -61,7 +56,7 @@ class UserController {
                 $_SESSION['user'] = $_POST["name"];
                 $_SESSION['userId'] = UserDB::getId($_POST["name"]);
                 $_SESSION["loggedin"] = true;
-                ViewHelper::redirect(BASE_URL . "user/calendar");
+                ViewHelper::redirect(BASE_URL . "alert");
             } else {
                 self::registerForm($_POST);
             }

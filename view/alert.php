@@ -2,9 +2,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <meta charset="UTF-8" />
 <link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "calendar.css" ?>">
+<link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "lists.css" ?>">
 
-<?php include("view/menu.php"); ?>
-<title>User Profile</title>
 
 <ul>
     <li>userId: <b><?= $event["eventId"] ?></b></li>
@@ -22,8 +21,8 @@ $url = "$_SERVER[REQUEST_URI]";
 $id = explode("=", $url)[1];
 
 ?>
-<button type="button" id="yes">Accept</button>
-<button type="button" id="no">Decline</button>
+<button class="button1" type="button" id="yes">Accept</button>
+<button class="button1" type="button" id="no">Decline</button>
 
 <p id="p"> </p>
 

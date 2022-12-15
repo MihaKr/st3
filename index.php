@@ -15,14 +15,11 @@ $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 $urls = [
     "" => function () {
         if(UserController::loggedIn()) {
-            ViewHelper::redirect(BASE_URL . "user/calendar");
+            ViewHelper::redirect(BASE_URL . "alert");
         }
         else {
             ViewHelper::redirect(BASE_URL . "user/login");
         }
-    },
-    "user/calendar" => function () {
-        UserController::showC();
     },
     "event/add" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -82,8 +79,17 @@ $urls = [
         echo($data);
         GroupController::groupAdd($data);
     },
-    
-];
+    "group/lastAdd" => function () {
+        echo json_encode("aaa");        
+        GroupController::getLast();
+    },
+    "anon/check" => function () {
+        GroupController::showEvents();
+    },
+    "group/getList" => function () {
+        GroupController::getAllGroups();
+    },
+    ];
 
 try {
     if (isset($urls[$path])) {

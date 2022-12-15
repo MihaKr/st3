@@ -3,7 +3,7 @@
 class DBInit {
 
     private static $host = "localhost";
-    private static $user = "root";
+    private static $user = "vagr";
     private static $password = "";
     private static $schema = "calendar1";
     private static $instance = null;

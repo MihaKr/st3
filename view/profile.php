@@ -3,10 +3,15 @@
 <meta charset="UTF-8" />
 <link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "calendar.css" ?>">
 <link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "profile.css" ?>">
+<link rel="stylesheet" type="text/css" href="<?= ASSETS_URL . "add.css" ?>">
 
 <?php include("view/menu.php"); ?>
 <title>User Profile</title>
+<h1>User Profile</h1>
+
+
 <div class="card">
+    <p>Current User's Data</p>
     <ul>
         <li>user ID: <b><?= $user["userId"] ?></b></li>
         <li>username: <b><?= $user["name"] ?></b></li>
@@ -16,12 +21,23 @@
     </ul>
 </div>
 
-<button type="button" id="edit">EDIT</button><br>
+<div class="centerB">
+    <button class="button1" type="button" id="edit">EDIT</button><br>
+</div>
 
-<p><label>Group Name: <input type="text" id = "groupName" autofocus /></label></p>
-<p><button id="create">CREATE GROUP</button></p>
+<div class="centerB">
+    <div class="row">
+        <div class="col-25">
+            <label>Group Name:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id = "groupName" autofocus />
+        </div>
 
-<p id="p"> </p>
+    <button class="button1" id="create">CREATE GROUP</button>
+        <p id="p"> </p>
+    </div>
+</div>
 
 
 <script>
@@ -39,9 +55,20 @@
             success: function() {
                 let par = document.getElementById("p");
                 par.textContent = "Skupina uspešno dodana";
+                $.ajax({
+                type: "POST",
+                url: "<?php echo BASE_URL . "group/lastAdd" ?>",
+                dataType: 'html', 
+                success: function(data) {
+                    let x = JSON.stringify(data);
+                    let matches = x.match(/(\d+)/)[0];
+                    $("body").append("vaš ID skupine je: " + matches);
+                }, 
+            });
             }
-        });
-        });  
+        })
+        }); 
+         
     });
 </script>
 

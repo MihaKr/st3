@@ -1,43 +1,49 @@
 body {font-family: Arial, Helvetica, sans-serif;}
 form {border: 3px solid #f1f1f1;}
 
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+.rcorners1 {
+  border-radius: 25px;
+  background: #684fe4;
+  margin: auto;
+  width: 50%;
+  border: 3px solid #110b11;
+  padding: 10px;
 }
 
-button {
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    font-size: 1.2em;
-    border: 0;
-    background: lightblue;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-
-.imgcontainer {
+form {
   text-align: center;
-  margin: 24px 0 12px 0;
+  width: 80%;
+  margin: 0 auto;
 }
 
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
+.centerB {
+  display: flex;
+  justify-content: center;
 }
 
-.container {
-  padding: 16px;
+.button1 {
+  background-color: #4fe483;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 8px;
+}
+
+.button1:hover {background-color: #6fcb8f}
+
+.button1:active {
+  background-color: #6fcb8f;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+body {
+  background-color: #4fb0e4;
 }
 
 span.psw {
@@ -45,7 +51,20 @@ span.psw {
   padding-top: 16px;
 }
 
-/* Change styles for span and cancel button on extra small screens */
+label, input {
+  display: inline-block;
+}
+
+label {
+  width: 50%;
+  text-align: right;
+}
+
+label+input {
+  width: 0%;
+  margin: 0 30% 0 4%;
+}
+
 @media screen and (max-width: 300px) {
   span.psw {
      display: block;

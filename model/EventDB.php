@@ -6,7 +6,7 @@ class EventDB {
     public static function insert($name, $userId, $groupId, $date, $location, $about) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("INSERT INTO event (name, userId, groupId, date, location, about)
+        $statement = $db->prepare("INSERT INTO `event` (name, userId, groupId, date, location, about)
             VALUES (:name, :userId, :groupId, :date, :location, :about)");
         $statement->bindParam(":name", $name);
         $statement->bindParam(":userId", $userId);
@@ -22,7 +22,7 @@ class EventDB {
         $db = DBInit::getInstance();
 
         $statement = $db->prepare("SELECT name, eventId, userId, groupId, location, date, about 
-            FROM event");
+            FROM `event`");
         $statement->execute();
 
         return $statement->fetchAll();
@@ -31,7 +31,7 @@ class EventDB {
     public static function getEventDATA($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT name, eventId, userId, groupId, location, date, about FROM event WHERE eventId = :id");
+        $statement = $db->prepare("SELECT name, eventId, userId, groupId, location, date, about FROM `event` WHERE eventId = :id");
         $statement->bindParam(":id", $id);
 
         $statement->execute();
@@ -46,7 +46,7 @@ class EventDB {
         $two = $id["group2"];
         $three = $id["group3"];
 
-        $statement = $db->prepare("SELECT name, eventId, userId, groupId, location, date, about FROM event 
+        $statement = $db->prepare("SELECT name, eventId, userId, groupId, location, date, about FROM `event`
         WHERE groupId = :id1 OR groupId = :id2 OR groupId = :id3");
 
         $statement->bindParam(":id1", $one);
@@ -61,7 +61,7 @@ class EventDB {
     public static function getAcceptedEvents($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT name, eventId, userId, groupId, location, date, about FROM event WHERE eventId = ANY ( 
+        $statement = $db->prepare("SELECT name, eventId, userId, groupId, location, date, about FROM `event` WHERE eventId = ANY ( 
             SELECT eventId FROM alerts WHERE acc = 2 AND userId = :id)");
 
         $statement->bindParam(":id", $id);
@@ -75,7 +75,7 @@ class EventDB {
     public static function getId() {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT eventId FROM event ORDER BY eventId DESC LIMIT 1");
+        $statement = $db->prepare("SELECT eventId FROM `event` ORDER BY eventId DESC LIMIT 1");
 
         $statement->execute();
 

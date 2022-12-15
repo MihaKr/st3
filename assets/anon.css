@@ -1,18 +1,18 @@
 .container {
-  display: inline-block;
+    display: inline-block;
 }
 
 .button1 {
-  background-color: #4fe483;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  border-radius: 8px;
+    background-color: #4fe483;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 8px;
 }
 
 .button1:hover {background-color: #6fcb8f}
@@ -23,6 +23,10 @@
   transform: translateY(4px);
 }
 
+
+body {
+    background-color: #4fb0e4;
+}
 
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -37,8 +41,13 @@
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
 
+
 @media only screen and (max-width: 450px) {
+  [class*="col-"] {
+    width: 100%;
+  }
   .button1 {
     width: 100%;
   }
 }
+
